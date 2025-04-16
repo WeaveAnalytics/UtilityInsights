@@ -46,3 +46,10 @@ echo "Fabric Capacity: $fabric_capacity_name"
 echo "Key Vault: $keyvault_name"
 echo "Azure OpenAI Endpoint URL: $endpoint_url"
 echo "Azure OpenAI API Key: $api_key"
+
+# Update Notebook file
+sed -i "s/REPLACE_GPT4V_KEY/$endpoint_url/g" ./documentextract.ipynb
+sed -i "s/REPLACE_GPT4V_ENDPOINT/$endpoint_url/g" ./documentextract.ipynb
+
+pip install needlr --user
+python ./test.py
