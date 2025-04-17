@@ -10,6 +10,7 @@ The following commands should be executed from the Azure Cloud Shell at https://
 ```bash
 git clone https://github.com/WeaveAnalytics/UtilityInsights.git
 cd UtilityInsights
+az login
 bash deploy.sh
 ```
 
