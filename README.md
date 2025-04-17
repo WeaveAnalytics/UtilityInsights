@@ -6,7 +6,7 @@ This project uses Azure OpenAI and Microsoft Fabric to analyze billing statement
 # How to Run
 
 ### "Easy Button" Deployment
-The following commands should be executed from the Azure Cloud Shell at https://shell.azure.com using bash:
+The following commands should be executed from the Azure Cloud Shell at https://shell.azure.com using bash. Run them line by line, as the az login portion is interactive:
 ```bash
 git clone https://github.com/WeaveAnalytics/UtilityInsights.git
 cd UtilityInsights
