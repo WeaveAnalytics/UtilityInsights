@@ -38,16 +38,6 @@ az keyvault secret set --vault-name $keyvault_name --name gpt4okey --value $api_
 # Create the Azure Capacity
 az fabric capacity create --resource-group $resource_group --capacity-name $fabric_capacity_name --sku "{name:${fabric_capacity_sku},tier:Fabric}" --location $location --administration "{members:[${current_user_name}]}"
 
-# Export needed variables
-export FABRIC_CAPACITY=$fabric_capacity_name
-export KEY_VAULT_NAME=$keyvault_name
-export AZURE_OPENAI_URL=$endpoint_url
-export AZURE_OPENAI_KEY=api_key
-echo "Fabric Capacity: $fabric_capacity_name"
-echo "Key Vault: $keyvault_name"
-echo "Azure OpenAI Endpoint URL: $endpoint_url"
-echo "Azure OpenAI API Key: $api_key"
-
 # Update Notebook file
 sed -i "s/REPLACE_GPT4V_KEY/$endpoint_url/g" ./documentextract.ipynb
 sed -i "s/REPLACE_GPT4V_ENDPOINT/$endpoint_url/g" ./documentextract.ipynb
@@ -57,7 +47,22 @@ az ad app create --display-name ${app_name}
 app_id=$(az ad app list --query "[?displayName=='${app_name}'].appId" --output tsv)
 az ad app permission add --id $app_id --api "00000009-0000-0000-c000-000000000000" --api-permissions 28379fa9-8596-4fd9-869e-cb60a93b5d84=Role
 az ad app permission admin-consent --id $app_id
+az ad app credential reset --id $app_id
+secret=$(az ad app credential list --id $app_id)
+
+# Export needed variables
+export FABRIC_CAPACITY=$fabric_capacity_name
+export KEY_VAULT_NAME=$keyvault_name
+export AZURE_OPENAI_URL=$endpoint_url
+export AZURE_OPENAI_KEY=$api_key
+export APP_SECRET=$secret
+echo "Fabric Capacity: $fabric_capacity_name"
+echo "Key Vault: $keyvault_name"
+echo "Azure OpenAI Endpoint URL: $endpoint_url"
+echo "Azure OpenAI API Key: $api_key"
+echo "App Secret: $secret"
+
 
 # Needlr
-pip install needlr --user
-python ./test.py
+#pip install needlr --user
+#python ./test.py
