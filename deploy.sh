@@ -47,8 +47,8 @@ az ad app create --display-name ${app_name}
 app_id=$(az ad app list --query "[?displayName=='${app_name}'].appId" --output tsv)
 az ad app permission add --id $app_id --api "00000009-0000-0000-c000-000000000000" --api-permissions 28379fa9-8596-4fd9-869e-cb60a93b5d84=Role
 az ad app permission admin-consent --id $app_id
-az ad app credential reset --id $app_id
-secret=$(az ad app credential list --id $app_id)
+output=$(az ad app credential reset --id $app_id --output json)
+secret=$(echo $output | jq '.password')
 
 # Export needed variables
 export FABRIC_CAPACITY=$fabric_capacity_name
