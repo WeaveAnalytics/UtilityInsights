@@ -49,20 +49,33 @@ az ad app permission add --id $app_id --api "00000009-0000-0000-c000-00000000000
 az ad app permission admin-consent --id $app_id
 output=$(az ad app credential reset --id $app_id --output json)
 secret=$(echo $output | jq '.password')
+tenant=$(echo $output | jq '.tenant')
 
 # Export needed variables
 export FABRIC_CAPACITY=$fabric_capacity_name
 export KEY_VAULT_NAME=$keyvault_name
 export AZURE_OPENAI_URL=$endpoint_url
 export AZURE_OPENAI_KEY=$api_key
+export APP_ID=$app_id
 export APP_SECRET=$secret
 echo "Fabric Capacity: $fabric_capacity_name"
 echo "Key Vault: $keyvault_name"
 echo "Azure OpenAI Endpoint URL: $endpoint_url"
 echo "Azure OpenAI API Key: $api_key"
 echo "App Secret: $secret"
+echo "App ID: $app_id"
+echo "App Tenant: $tenant"
 
+# Create Environment file used by needlr
+cat <<EOT > .env
+APP_ID=$app_id
+APP_SECRET=$secret
+TENANT_ID=$tenant
+EOT
+
+echo ".env file has been created!"
 
 # Needlr
-#pip install needlr --user
-#python ./test.py
+pip install needlr --user
+pip install python-dotenv --user
+python ./test.py
