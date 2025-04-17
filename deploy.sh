@@ -10,7 +10,7 @@ deployment_name="gpt-4o-deployment${randomnbr}"
 keyvault_name="myKeyVaultAccount${randomnbr}"
 fabric_capacity_name="myfabriccapacity${randomnbr}"
 fabric_capacity_sku="F64"
-app_name=="fabricApp${randomnbr}"
+app_name="fabricApp${randomnbr}"
 
 # Create resource group
 az group create --name $resource_group --location $location
