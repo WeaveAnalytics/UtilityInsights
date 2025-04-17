@@ -51,5 +51,12 @@ echo "Azure OpenAI API Key: $api_key"
 sed -i "s/REPLACE_GPT4V_KEY/$endpoint_url/g" ./documentextract.ipynb
 sed -i "s/REPLACE_GPT4V_ENDPOINT/$endpoint_url/g" ./documentextract.ipynb
 
+# Register App and grant consent
+az ad app create --display-name ${app_name}
+app_id=$(az ad app list --query "[?displayName=='${app_name}'].appId" --output tsv)
+az ad app permission add --id $app_id --api "00000009-0000-0000-c000-000000000000" --api-permissions 28379fa9-8596-4fd9-869e-cb60a93b5d84=Role
+az ad app permission admin-consent --id $app_id
+
+# Needlr
 pip install needlr --user
 python ./test.py
