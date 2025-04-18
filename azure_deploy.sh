@@ -73,8 +73,3 @@ CURRENT_USER_ID=$current_user_id
 EOT
 
 echo ".env file has been created!"
-
-# Needlr
-pip install needlr --user
-pip install python-dotenv --user
-python ./test.py
