@@ -51,7 +51,7 @@ tenant=$(echo $output | jq '.tenant')
 tenant="${tenant//\"}"
 
 # Create the Azure Capacity
-az fabric capacity create --resource-group $resource_group --capacity-name $fabric_capacity_name --sku "{name:${fabric_capacity_sku},tier:Fabric}" --location $location --administration "{members:[${current_user_name}, ${app_name}]}"
+az fabric capacity create --resource-group $resource_group --capacity-name $fabric_capacity_name --sku "{name:${fabric_capacity_sku},tier:Fabric}" --location $location --administration "{members:[${current_user_name},${app_name}]}"
 
 # Export needed variables
 export FABRIC_CAPACITY=$fabric_capacity_name
