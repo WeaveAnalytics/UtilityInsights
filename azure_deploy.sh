@@ -60,13 +60,8 @@ export AZURE_OPENAI_URL=$endpoint_url
 export AZURE_OPENAI_KEY=$api_key
 export APP_ID=$app_id
 export APP_SECRET=$secret
-echo "Fabric Capacity: $fabric_capacity_name"
-echo "Key Vault: $keyvault_name"
-echo "Azure OpenAI Endpoint URL: $endpoint_url"
-echo "Azure OpenAI API Key: $api_key"
-echo "App Secret: $secret"
-echo "App ID: $app_id"
-echo "App Tenant: $tenant"
+echo "Make sure eveyone has Contributor access to the Fabric Capacity: $fabric_capacity_name"
+echo "This access can be removed after deployment"
 
 # Create Environment file used by needlr
 cat <<EOT > .env
