@@ -6,11 +6,14 @@ This project uses Azure OpenAI and Microsoft Fabric to analyze billing statement
 # How to Run
 
 ### "Easy Button" Deployment
-The following commands should be executed from the Azure Cloud Shell at https://shell.azure.com using bash. Run them line by line, as the az login portion is interactive:
+The following commands should be executed from the Azure Cloud Shell at https://shell.azure.com using bash. The first step is to login into the console. Make sure yo uselect a Subscription if asked.
+```bash
+az login
+```
+After that, just run the following commands:
 ```bash
 git clone https://github.com/WeaveAnalytics/UtilityInsights.git
 cd UtilityInsights
-az login
 bash deploy.sh
 ```
 
@@ -25,3 +28,5 @@ If you already have all services needed, you can skip the automated deployment, 
 - Azure OpenAI service
 - Azure KeyVault to store secrets
 - Azure Fabric Capacity to use in the process
+- A new Entra ID App Registration that cfreates the right Fabric items
+- A new Fabric Workspace with the items (Lakehouse and Noteook) required to test UtilityInsights
