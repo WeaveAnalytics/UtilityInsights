@@ -46,7 +46,9 @@ az ad app permission add --id $app_id --api "00000009-0000-0000-c000-00000000000
 az ad app permission admin-consent --id $app_id
 output=$(az ad app credential reset --id $app_id --output json)
 secret=$(echo $output | jq '.password')
+secret="${secret//\"}"
 tenant=$(echo $output | jq '.tenant')
+tenant="${tenant//\"}"
 
 # Create the Azure Capacity
 az fabric capacity create --resource-group $resource_group --capacity-name $fabric_capacity_name --sku "{name:${fabric_capacity_sku},tier:Fabric}" --location $location --administration "{members:[${current_user_name}, ${app_name}]}"
