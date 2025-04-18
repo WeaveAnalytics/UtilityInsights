@@ -35,9 +35,6 @@ sleep 10
 az keyvault secret set --vault-name $keyvault_name --name gpt4ourl --value $endpoint_url
 az keyvault secret set --vault-name $keyvault_name --name gpt4okey --value $api_key
 
-# Create the Azure Capacity
-az fabric capacity create --resource-group $resource_group --capacity-name $fabric_capacity_name --sku "{name:${fabric_capacity_sku},tier:Fabric}" --location $location --administration "{members:[${current_user_name}]}"
-
 # Update Notebook file
 sed -i "s/REPLACE_GPT4V_KEY/$endpoint_url/g" ./documentextract.ipynb
 sed -i "s/REPLACE_GPT4V_ENDPOINT/$endpoint_url/g" ./documentextract.ipynb
@@ -50,6 +47,9 @@ az ad app permission admin-consent --id $app_id
 output=$(az ad app credential reset --id $app_id --output json)
 secret=$(echo $output | jq '.password')
 tenant=$(echo $output | jq '.tenant')
+
+# Create the Azure Capacity
+az fabric capacity create --resource-group $resource_group --capacity-name $fabric_capacity_name --sku "{name:${fabric_capacity_sku},tier:Fabric}" --location $location --administration "{members:[${current_user_name}, ${app_name}]}"
 
 # Export needed variables
 export FABRIC_CAPACITY=$fabric_capacity_name
