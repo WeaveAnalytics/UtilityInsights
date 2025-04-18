@@ -38,7 +38,9 @@ az keyvault secret set --vault-name $keyvault_name --name gpt4okey --value $api_
 # Register App and grant consent
 az ad app create --display-name ${app_name}
 app_id=$(az ad app list --query "[?displayName=='${app_name}'].appId" --output tsv)
+sleep 10
 az ad app permission add --id $app_id --api "00000009-0000-0000-c000-000000000000" --api-permissions 28379fa9-8596-4fd9-869e-cb60a93b5d84=Role
+sleep 10
 az ad app permission admin-consent --id $app_id
 output=$(az ad app credential reset --id $app_id --output json)
 secret=$(echo $output | jq '.password')
