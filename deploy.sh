@@ -71,6 +71,8 @@ cat <<EOT > .env
 APP_ID=$app_id
 APP_SECRET=$secret
 TENANT_ID=$tenant
+CAPACITY_NAME=$fabric_capacity_name
+CURRENT_USER_ID=$current_user_id
 EOT
 
 echo ".env file has been created!"
