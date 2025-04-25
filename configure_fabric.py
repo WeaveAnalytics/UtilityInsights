@@ -38,12 +38,12 @@ fc.workspace.role.assign(workspace_id=ws.id, principal=ServicePrincipal(id=curre
 # Create Lakehouse
 lh = fc.lakehouse.create(display_name='utilityinsightslh', 
                             workspace_id=ws.id, 
-                            description=testParameters['Utility Insights Lakehouse'], 
+                            description='Utility Insights Lakehouse', 
                             enableSchemas=False)
 # Create Notebook
 nb = fc.notebook.create(display_name='utilityinsightsnb', 
-                            workspace_id=workspace_test.id, 
-                            description=testParameters['Utility Insights Notebook'])
+                            workspace_id=ws.id, 
+                            description='Utility Insights Notebook')
 
 # Update Notebook Content
 nb = fc.notebook.update_definition(workspace_id=ws.id,
@@ -66,10 +66,5 @@ nb = fc.notebook.update_definition(workspace_id=ws.id,
                             },
                             updateMetadata=False)
 
-# Update Notebook Defalt Lakehouse
-#resp = fc.notebook.update_default_lakehouse(workspace_id:ws.id, 
-#                            notebook_id=nb.id, 
-#                            default_lakehouse_id=lh.id, 
-#                            default_lakehouse_name=lh.displayName)
 
 print("Done")
