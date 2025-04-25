@@ -14,6 +14,6 @@ APP_NAME="utilityinsightsfapp"
 # If Fabric Capacity is already deployed it will be used. 
 FABRIC_CAPACITY_NAME="utilityinsightsfc"
 FABRIC_CAPACITY_SKU="F64"
-# If Fabric Workspace (Name or ID will work) is already deployed it will be used. 
+# If Fabric Workspace Name is already deployed it will be used. 
 FABRIC_WORKSPACE="Utility Insights"
 
