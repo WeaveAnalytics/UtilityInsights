@@ -2,4 +2,4 @@
 # Needlr
 pip install needlr --user
 pip install python-dotenv --user
-python ./test.py
+python ./configure_fabric.py
