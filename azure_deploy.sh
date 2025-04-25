@@ -59,7 +59,7 @@ if [ -z "$KEYVAULT_EXISTS" ]; then
     az role assignment create --assignee ${current_user_id} --role "Key Vault Secrets Officer" --scope $(az keyvault show --name ${keyvault_name} --resource-group ${resource_group} --query id -o tsv)
     sleep 10
 else
-    echo "Key Vault already exists. It will be used on this deployment""
+    echo "Key Vault already exists. It will be used on this deployment"
     keyvault_name=$KEYVAULT_NAME
 fi
 
