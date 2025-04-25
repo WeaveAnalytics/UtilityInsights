@@ -34,7 +34,9 @@ else
 fi
 
 # Check if the Azure OpenAI model deployment exists
-DEPLOYMENT_EXISTS=$(az openai deployment list --resource-group $resource_group --resource-name $account_name --query "[?name=='$DEPLOYMENT_NAME']" --output tsv)
+DEPLOYMENT_EXISTS=$(az cognitiveservices account deployment list -n $account_name -g $resource_group --query "[?name=='$DEPLOYMENT_NAME']" --output tsv)
+#DEPLOYMENT_EXISTS=$(az cognitiveservices account list-models -n $account_name -g $resource_group)
+#DEPLOYMENT_EXISTS=$(az openai deployment list --resource-group $resource_group --resource-name $account_name --query "[?name=='$DEPLOYMENT_NAME']" --output tsv)
 if [ -z "$DEPLOYMENT_EXISTS" ]; then
     echo "Model deployment does not exist. Deploying model ${deployment_name} ..."
     az cognitiveservices account deployment create --resource-group $resource_group --name $account_name --model-name gpt-4o --model-version 2024-11-20 --model-format OpenAI --sku GlobalStandard --deployment-name $deployment_name --sku-capacity 100
