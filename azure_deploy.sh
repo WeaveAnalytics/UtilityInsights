@@ -13,6 +13,7 @@ keyvault_name="${KEYVAULT_NAME}${suffix}"
 app_name="${APP_NAME}${suffix}"
 fabric_capacity_name="${FABRIC_CAPACITY_NAME}${suffix}"
 fabric_capacity_sku=$FABRIC_CAPACITY_SKU
+fabric_workspace="${FABRIC_WORKSPACE}${suffix}"
 
 # Show only errors
 az config set core.only_show_errors=true >> output.log
@@ -108,6 +109,7 @@ fi
 
 # Export needed variables
 export FABRIC_CAPACITY=$fabric_capacity_name
+export FABRIC_WORKSPACE=$fabric_workspace
 export KEY_VAULT_NAME=$keyvault_name
 export AZURE_OPENAI_URL=$endpoint_url
 export AZURE_OPENAI_KEY=$api_key
@@ -123,6 +125,7 @@ APP_SECRET=$secret
 TENANT_ID=$tenant
 CAPACITY_NAME=$fabric_capacity_name
 CURRENT_USER_ID=$current_user_id
+FABRIC_WORKSPACE=$fabric_workspace
 EOT
 
 echo ".env file has been created!"
