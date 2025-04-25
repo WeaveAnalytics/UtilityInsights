@@ -14,6 +14,9 @@ app_name="${APP_NAME}${suffix}"
 fabric_capacity_name="${FABRIC_CAPACITY_NAME}${suffix}"
 fabric_capacity_sku=$FABRIC_CAPACITY_SKU
 
+# Show only errors
+az config set core.only_show_errors=true
+
 # If Resource Gorup already exists, use it. Otherwise create a new one using suffix
 if [ $(az group exists --name $RESOURCE_GROUP) = false ]; then
     echo "Resource Group does not exist. Creating the resource group ${resource_group} ..."
@@ -88,8 +91,9 @@ else
 fi
 
 # Extract App Registration Tenant and Secret for next Configuration step
-tenant=$(az ad app credential reset --id 6b339453-bb49-411f-a025-10ff308cba83 --query "tenant" --output tsv)
-secret=$(az ad app credential reset --id 6b339453-bb49-411f-a025-10ff308cba83 --query "password" --output tsv)
+tomorrow_date=$(date -d "tomorrow" +"%Y-%m-%d")
+tenant=$(az ad app credential reset --id $app_id --end-date $tomorrow_date --query "tenant" --output tsv)
+secret=$(az ad app credential reset --id $app_id --end-date $tomorrow_date --query "password" --output tsv)
 
 # Check if the Microsoft Fabric capacity exists
 CAPACITY_EXISTS=$(az fabric capacity list --query "[?name=='$FABRIC_CAPACITY_NAME']" --output tsv)
