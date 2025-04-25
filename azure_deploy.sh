@@ -88,11 +88,8 @@ else
 fi
 
 # Extract App Registration Tenant and Secret for next Configuration step
-output=$(az ad app credential reset --id $app_id --output json)
-secret=$(echo $output | jq '.password')
-secret="${secret//\"}"
-tenant=$(echo $output | jq '.tenant')
-tenant="${tenant//\"}"
+tenant=$(az ad app credential reset --id 6b339453-bb49-411f-a025-10ff308cba83 --query "tenant" --output tsv)
+secret=$(az ad app credential reset --id 6b339453-bb49-411f-a025-10ff308cba83 --query "password" --output tsv)
 
 # Check if the Microsoft Fabric capacity exists
 CAPACITY_EXISTS=$(az fabric capacity list --query "[?name=='$FABRIC_CAPACITY_NAME']" --output tsv)
