@@ -82,9 +82,9 @@ if [ -z "$APP_EXISTS" ]; then
     echo "App registration does not exist. Creating the app registration ${app_name}..."
     az ad app create --display-name ${app_name} >> output.log
     app_id=$(az ad app list --query "[?displayName=='${app_name}'].appId" --output tsv)
-    sleep 5
+    sleep 30
     az ad app permission add --id $app_id --api "00000009-0000-0000-c000-000000000000" --api-permissions 28379fa9-8596-4fd9-869e-cb60a93b5d84=Role >> output.log
-    sleep 5
+    sleep 30
     az ad app permission admin-consent --id $app_id >> output.log
 else
     echo "App registration already exists."
