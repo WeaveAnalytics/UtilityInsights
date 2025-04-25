@@ -59,7 +59,12 @@ nb = fc.notebook.update_definition(workspace_id=ws.id,
                                     "parts": [
                                         {
                                             "path": "notebook-content.py",
-                                            "payload": base64.b64encode(open('./utilityinsight.txt', 'rb').read()).decode('utf-8'),
+                                            "payload": base64.b64encode(open('./notebook_part0.txt', 'rb').read()).decode('utf-8'),
+                                            "payloadType": "InlineBase64"
+                                        },
+                                        {
+                                            "path": ".platform",
+                                            "payload": base64.b64encode(open('./notebook_part1.txt', 'rb').read()).decode('utf-8'),
                                             "payloadType": "InlineBase64"
                                         }
                                     ]
