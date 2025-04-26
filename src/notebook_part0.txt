@@ -243,7 +243,7 @@ def load_json_to_table(processsed_json):
     df.write.mode("append").saveAsTable("bills")
 
 def create_folder(folder_name):
-    mkdirs(f'file:${folder_name}')
+    mkdirs(f'file:{folder_name}')
 
 
 # METADATA ********************
@@ -271,7 +271,7 @@ create_folder(archive_folder_path)
 url = 'https://github.com/WeaveAnalytics/UtilityInsights/blob/main/examples/sample_bill.pdf'
 response = requests.get(url)
 image_content = response.content
-with open(f'${pdf_folder_path}/sample_bill.pdf', 'wb') as file:
+with open(f'{pdf_folder_path}sample_bill.pdf', 'wb') as file:
     file.write(image_content)
 
 # METADATA ********************
