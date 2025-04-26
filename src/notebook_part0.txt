@@ -52,8 +52,11 @@
 # CELL ********************
 
 # Configuration
-GPT4V_KEY = "REPLACE_GPT4V_KEY"  # Your GPT4V key
-GPT4V_ENDPOINT = "REPLACE_GPT4V_ENDPOINT"  # The API endpoint for your GPT4V instance
+from mssparkutils.credentials import getSecret
+key_vault_url = 'https://<<your-key-vault-name>>.vault.azure.net/'
+GPT4V_KEY = getSecret(key_vault_url, 'gpt4okey')
+GPT4V_ENDPOINT = getSecret(key_vault_url, 'gpt4ourl')
+
 
 # METADATA ********************
 

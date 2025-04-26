@@ -126,6 +126,7 @@ TENANT_ID=$tenant
 CAPACITY_NAME=$fabric_capacity_name
 CURRENT_USER_ID=$current_user_id
 FABRIC_WORKSPACE=$fabric_workspace
+KEY_VAULT_NAME=$keyvault_name
 EOT
 
 echo ".env file has been created!"

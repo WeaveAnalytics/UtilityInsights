@@ -16,6 +16,7 @@ tenant = os.getenv("TENANT_ID")
 capacity = os.getenv("CAPACITY_NAME")
 workspace = os.getenv("FABRIC_WORKSPACE")
 current_user_id = os.getenv("CURRENT_USER_ID")
+keyvault_name = os.getenv("KEY_VAULT_NAME")
 
 # Connect
 auth = FabricServicePrincipal(api_id, api_key, tenant)
@@ -55,6 +56,7 @@ with open(notebook_file_path_part0, 'r') as file:
     modified_content = file_content.replace('<<your_lakehouse_id>>', str(lh.id))
     modified_content = file_content.replace('<<your_lakehouse_name>>', lh.displayName)
     modified_content = file_content.replace('<<your_lakehouse_workspace_id>>', str(ws.id))
+    modified_content = file_content.replace('<<your-key-vault-name>>', keyvault_name)
 with open(notebook_file_path_part0, 'w') as file:
     file.write(modified_content)
 
@@ -78,6 +80,5 @@ nb = fc.notebook.update_definition(workspace_id=ws.id,
                                 }
                             },
                             updateMetadata=False)
-
 
 print("Done")
