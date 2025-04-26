@@ -24,11 +24,9 @@ fc = FabricClient(auth=auth)
 # Get Capacity
 c_id = ""
 for c in fc.capacity.list_capacities():
-    print(c.displayName)
     if c.displayName == capacity:
         c_id = str(c.id)
         break
-print(c_id)
 # Create Workspace
 ws = fc.workspace.create(display_name=workspace,
                              capacity_id=c_id, 
