@@ -4,6 +4,7 @@ from needlr.models.workspace import Workspace, WorkspaceRole, ServicePrincipal
 
 from dotenv import load_dotenv
 import os
+import base64
 
 # Load variables from the .env file
 load_dotenv()
