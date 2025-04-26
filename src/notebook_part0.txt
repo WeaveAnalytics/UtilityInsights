@@ -52,7 +52,7 @@
 # CELL ********************
 
 # Configuration
-from mssparkutils.credentials import getSecret
+from notebookutils.credentials import getSecret
 key_vault_url = 'https://<<your-key-vault-name>>.vault.azure.net/'
 GPT4V_KEY = getSecret(key_vault_url, 'gpt4okey')
 GPT4V_ENDPOINT = getSecret(key_vault_url, 'gpt4ourl')
@@ -186,6 +186,7 @@ def send_request(encoded_images):
 # CELL ********************
 
 # Main Functions
+from notebookutils.fs import mkdirs
 
 def convert_pdf_to_images(pdf_file_path, image_path):
     # Convert PDF file to images
@@ -241,6 +242,38 @@ def load_json_to_table(processsed_json):
     df = spark.read.option("multiLine", "true").json(new_path)
     df.write.mode("append").saveAsTable("bills")
 
+def create_folder(folder_name):
+    mkdirs(f'file:${folder_name}')
+
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+# Lakehouse Folders and Sample file
+import requests
+
+lakehouse_path = "/lakehouse/default/Files"
+pdf_folder_path = f"{lakehouse_path}/invoices/" # Path to pdf folder
+json_folder_path = f"{lakehouse_path}/json/" # Path to json output folder
+image_folder_path = f"{lakehouse_path}/images/" # Path to images
+archive_folder_path = f"{lakehouse_path}/processed/" # Path to archive folder
+# Create all required folders if hey don't exist
+create_folder(pdf_folder_path)
+create_folder(json_folder_path)
+create_folder(image_folder_path)
+create_folder(archive_folder_path)
+url = 'https://github.com/WeaveAnalytics/UtilityInsights/blob/main/examples/sample_bill.pdf'
+response = requests.get(url)
+image_content = response.content
+with open(f'${pdf_folder_path}/sample_bill.pdf', 'wb') as file:
+    file.write(image_content)
+
 # METADATA ********************
 
 # META {
@@ -251,14 +284,8 @@ def load_json_to_table(processsed_json):
 # CELL ********************
 
 # Runner
-lakehouse_path = "/lakehouse/default/Files"
-pdf_folder_path = f"{lakehouse_path}/invoices/" # Path to pdf folder
-json_folder_path = f"{lakehouse_path}/json/" # Path to json output folder
-image_folder_path = f"{lakehouse_path}/images/" # Path to images
-archive_folder_path = f"{lakehouse_path}/processed/" # Path to archive folder
+
 def runner():
-    # Get a list of all paths of the pdfs in the pdf folder
-    #pdf_paths = [os.path.join(pdf_folder_path, file) for file in os.listdir(pdf_folder_path)]
     # Run the extractor for every pdf in the folder
     for pdf_file in os.listdir(pdf_folder_path):
         # Convert PDF's to Images
