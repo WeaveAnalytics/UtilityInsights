@@ -54,9 +54,9 @@ with open(notebook_file_path_part0, 'r') as file:
     file_content = file.read()
     # Replace the old string with the new string
     modified_content = file_content.replace('<<your_lakehouse_id>>', str(lh.id))
-    modified_content = file_content.replace('<<your_lakehouse_name>>', lh.displayName)
-    modified_content = file_content.replace('<<your_lakehouse_workspace_id>>', str(ws.id))
-    modified_content = file_content.replace('<<your-key-vault-name>>', keyvault_name)
+    modified_content = modified_content.replace('<<your_lakehouse_name>>', lh.displayName)
+    modified_content = modified_content.replace('<<your_lakehouse_workspace_id>>', str(ws.id))
+    modified_content = modified_content.replace('<<your-key-vault-name>>', keyvault_name)
 with open(notebook_file_path_part0, 'w') as file:
     file.write(modified_content)
 
