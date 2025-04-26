@@ -46,6 +46,18 @@ nb = fc.notebook.create(display_name='utilityinsightsnb',
                             workspace_id=ws.id, 
                             description='Utility Insights Notebook')
 
+# Update Notebook metadata with default Lakehouse before uploading
+notebook_file_path_part0 = './src/notebook_part0.txt'
+notebook_file_path_part1 = './src/notebook_part1.txt'
+with open(notebook_file_path_part0, 'r') as file:
+    file_content = file.read()
+    # Replace the old string with the new string
+    modified_content = file_content.replace('<<your_lakehouse_id>>', str(lh.id))
+    modified_content = file_content.replace('<<your_lakehouse_name>>', lh.displayName)
+    modified_content = file_content.replace('<<your_lakehouse_workspace_id>>', str(ws.id))
+with open(notebook_file_path_part0, 'w') as file:
+    file.write(modified_content)
+
 # Update Notebook Content
 nb = fc.notebook.update_definition(workspace_id=ws.id,
                             notebook_id=nb.id,
@@ -54,12 +66,12 @@ nb = fc.notebook.update_definition(workspace_id=ws.id,
                                     "parts": [
                                         {
                                             "path": "notebook-content.py",
-                                            "payload": base64.b64encode(open('./notebook_part0.txt', 'rb').read()).decode('utf-8'),
+                                            "payload": base64.b64encode(open(notebook_file_path_part0, 'rb').read()).decode('utf-8'),
                                             "payloadType": "InlineBase64"
                                         },
                                         {
                                             "path": ".platform",
-                                            "payload": base64.b64encode(open('./notebook_part1.txt', 'rb').read()).decode('utf-8'),
+                                            "payload": base64.b64encode(open(notebook_file_path_part1, 'rb').read()).decode('utf-8'),
                                             "payloadType": "InlineBase64"
                                         }
                                     ]
