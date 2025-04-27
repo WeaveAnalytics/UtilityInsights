@@ -268,7 +268,7 @@ create_folder(pdf_folder_path)
 create_folder(json_folder_path)
 create_folder(image_folder_path)
 create_folder(archive_folder_path)
-url = 'https://github.com/WeaveAnalytics/UtilityInsights/blob/main/examples/sample_bill.pdf'
+url = 'https://github.com/WeaveAnalytics/UtilityInsights/raw/main/examples/sample_bill.pdf'
 response = requests.get(url)
 image_content = response.content
 with open(f'${pdf_folder_path}/sample_bill.pdf', 'wb') as file:
