@@ -245,6 +245,12 @@ def load_json_to_table(processsed_json):
 def create_folder(folder_name):
     mkdirs(f'file:{folder_name}')
 
+def upload_example_file(pdf_folder_path, fileName):
+    url = f'https://github.com/WeaveAnalytics/UtilityInsights/raw/main/examples/{fileName}'
+    response = requests.get(url)
+    with open(f'{pdf_folder_path}{fileName}', 'wb') as file:
+        file.write(response.content)
+
 
 # METADATA ********************
 
@@ -255,7 +261,7 @@ def create_folder(folder_name):
 
 # CELL ********************
 
-# Lakehouse Folders and Sample file
+# Create Lakehouse Folders and Upload Sample files
 import requests
 
 lakehouse_path = "/lakehouse/default/Files"
@@ -268,11 +274,19 @@ create_folder(pdf_folder_path)
 create_folder(json_folder_path)
 create_folder(image_folder_path)
 create_folder(archive_folder_path)
-url = 'https://github.com/WeaveAnalytics/UtilityInsights/raw/main/examples/sample_bill.pdf'
-response = requests.get(url)
-image_content = response.content
-with open(f'{pdf_folder_path}sample_bill.pdf', 'wb') as file:
-    file.write(image_content)
+
+# Upload GitHub sample bills
+fileList = ['495620098-UtilityBill.pdf',
+            '500641462-PSEG-Sample-Electric-Bill.pdf',
+            '550465281-Utility-Bill-Template.pdf',
+            '604170930-BillImage-1-2.pdf',
+            '622803179-249128336-Texas-Utility-Bill.pdf',
+            '625727210-Electric-Bill.pdf',
+            '672271705-Water-Bill-PDF.pdf',
+            '681162926-Singapore-Electricity-Utility-Bill-Template-Copy.pdf',
+            '765731043-Orion-Utility-Bills.pdf']
+for f in fileList:
+    upload_example_file(pdf_folder_path, f)
 
 # METADATA ********************
 
