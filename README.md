@@ -16,15 +16,10 @@ git clone https://github.com/WeaveAnalytics/UtilityInsights.git
 cd UtilityInsights
 bash azure_deploy.sh
 ```
-This completes the deployment of all Azure services. Before you proceed:
-1. On the Fabric Admin portal, make sure the entire organization has Contributor permissions on the newly create Fabric Capacity (printed by previous step). This assignment can be removed once the deployment is completed.
+This completes the deployment of all Azure services. Before you proceed, on the Fabric Admin portal, make sure the entire organization has Contributor permissions on the newly create Fabric Capacity (printed by previous step). This assignment can be removed once the deployment is completed.
    
    ![Fabric Capacity Contributor Permissions](./images/fabric_capacity_contributor_permissions.png)
    
-3. On the Azure Portal, make sure the App Registration created during this deployment has admin consent to run API calls
-   
-   ![App Registration Admin Consent](./images/app_registration_admin_consent.png)
-
 Finally, run the following script to complete the Fabric deployment:
 ```bash
 bash fabric_deploy.sh
