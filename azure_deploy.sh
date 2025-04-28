@@ -97,6 +97,7 @@ tenant=$(az ad app credential reset --id $app_id --end-date $tomorrow_date --que
 secret=$(az ad app credential reset --id $app_id --end-date $tomorrow_date --query "password" --output tsv)
 
 # Check if the Microsoft Fabric capacity exists
+az extension add --name microsoft-fabric
 CAPACITY_EXISTS=$(az fabric capacity list --query "[?name=='$FABRIC_CAPACITY_NAME']" --output tsv)
 if [ -z "$CAPACITY_EXISTS" ]; then
     echo "Fabric capacity does not exist. Creating the capacity ${fabric_capacity_name} with ${fabric_capacity_sku} SKU ..."
